@@ -1,65 +1,43 @@
-#include "LinkedList.hpp"
+
+#include "LINKlistt.hpp"
 #include <stdlib.h>
 #include <iostream>
 
 using namespace std;
 
-LinkedList::LinkedList()
+LinkedList::LINKlistt()
 {
     this->head = NULL;
     this->tail = NULL;
     this->count = 0;
 }
-int LinkedList::addAtIndex(int index)
+
+void LINKlistt::addAtIndex(int value, int index)
 {
-    if (this->head)
+    if (index == 0)
     {
-        if (index < 0 || index >= this->count)
-        {
-            cout << "ArrayIndexOutOfBoundException!" << endl;
-        }
-        if (index == 0)
-        {
-            return this->addFront();
-        }
-        else if (index == this->count + 1)
-        {
-            return this->addFront();
-        }
-        else
-        {
-            
-            Node* prevDude = this->head;
-            Node* dude2Add = this->head;
-
-            
-            for (int i = 0; i < index; i++)
-            {
-                dude2Add = dude2Add->getNextNode();
-            }
-
-           
-            while (prevDude->getNextNode() != dude2Add)
-            {
-                prevDude = prevDude->getNextNode();
-            }
-
-           
-            */
-
-            //Now everything is position and we are ready to operate!!!
-            prevDude->setNextNode(dude2Add->getNextNode());
-            dude2Add->setNextNode(NULL);
-            int value2Return = dude2Add->getPayload();
-            delete(dude2Add);
-            this->count++;
-            return value2Return;
-        }
-
+        this->addFront(value);
     }
+    else if (index == this->count)
+    {
+        this->addEnd(value);
     }
+    else
+    {
+        Node* dude2Add = new Node(value);
+        Node* prevDude = this->head;
+        for (int i = 0; i < (index - 1); i++)
+        {
+            prevDude = prevDude->getNextNode();
+        }
+        dude2Add->setNextNode(prevDude->getNextNode());
+        prevDude->setNextNode(dude2Add);
+        this->count++;
+    }
+
 }
-int LinkedList::removeAtIndex(int index)
+
+int LINKlistt::removeAtIndex(int index)
 {
     if (this->head)
     {
@@ -67,7 +45,8 @@ int LinkedList::removeAtIndex(int index)
         {
             cout << "ArrayIndexOutOfBoundException!!!!" << endl;
         }
-        
+        else
+        {
             //I actuall have something to remove
             if (index == 0)
             {
@@ -123,7 +102,7 @@ int LinkedList::removeAtIndex(int index)
 
 }
 
-void LinkedList::addFront(int value)
+void LINKlistt::addFront(int value)
 {
     if (this->head)
     {
@@ -140,7 +119,7 @@ void LinkedList::addFront(int value)
     }
 }
 
-int LinkedList::removeFront()
+int LINKlistt::removeFront()
 {
     if (this->head)
     {
@@ -155,7 +134,7 @@ int LinkedList::removeFront()
 
 }
 
-void LinkedList::addEnd(int value)
+void LINKlistt::addEnd(int value)
 {
     Node* n = new Node(value);
     if (head == NULL)
@@ -174,7 +153,7 @@ void LinkedList::addEnd(int value)
     this->count++;
 }
 
-int LinkedList::removeEnd()
+int LINKlistt ::removeEnd()
 {
     if (this->count > 0)
     {
@@ -202,7 +181,7 @@ int LinkedList::removeEnd()
     }
 
 }
-void LinkedList::display()
+void LINKlistt::display()
 {
     if (this->count == 0)
     {
@@ -217,6 +196,19 @@ void LinkedList::display()
             currNode = currNode->getNextNode();
         }
         cout << currNode->getPayload() << endl;
+    }
+    void LINKlistt::Sort()
+    {
+        int key, j;
+        for (int i = 1; i < size; i++) {
+            key = array[i];//take value
+            j = i;
+            while (j > 0 && array[j - 1] > key) {
+                array[j] = array[j - 1];
+                j--;
+            }
+            array[j] = key;   
+        }
     }
 
 }
